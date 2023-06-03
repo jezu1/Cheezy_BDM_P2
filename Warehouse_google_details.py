@@ -236,7 +236,7 @@ def create_opening_hours(spark, combined_df_opening_hours):
                         .selectExpr("key as ra_key", "day as day_key", "open_time", "close_time")
 
     #write opening hours to datawarehouse
-    opening_hours_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    opening_hours_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/opening_hours")
 
 #create a datawarehouse table for the weekdays because in the google data weekdays are identified by numbers from 1-6
@@ -254,7 +254,7 @@ def create_weekday(spark):
 
     weekday_tabel = spark.createDataFrame(weekdays, ["day_key", "weekday"])
 
-    weekday_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    weekday_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/weekday")
 
 

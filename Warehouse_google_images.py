@@ -63,5 +63,5 @@ def main():
                                             .selectExpr("key as ra_key", "image_file", "source")
 
     # write the images (filepath) not the image itself to the data warehouse
-    googel_image_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    googel_image_tabel.write.format("delta").mode('append').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/images")

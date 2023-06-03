@@ -121,7 +121,7 @@ def create_restaurants(spark_joined_rest):
                                                    .otherwise(None))
 
     #combine the price
-    restaurant_table = restaurant_tabel.withColumn("price", coalesce(restaurant_tabel["g_price"],
+    restaurant_tabel = restaurant_tabel.withColumn("price", coalesce(restaurant_tabel["g_price"],
                                                                      restaurant_tabel["ta_price_level"].cast("double")))
 
     restaurant_tabel =restaurant_tabel.drop("ta_price","ta_price_level","g_price")
@@ -138,7 +138,7 @@ def create_cuisines(spark_joined_rest):
     cuisine_tabel = cuisine_tabel.withColumn("cuisine", trim(col("cuisine")))
 
     #write to data warehouse
-    cuisine_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    cuisine_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/cuisines")
 
 #get the meals from tripadvisor
@@ -148,7 +148,7 @@ def create_meals(spark_joined_rest):
     meals_tabel = meals_tabel.withColumn("meals", explode(split(meals_tabel.meals, ",")))
     meals_tabel = meals_tabel.withColumn("meals", trim(col("meals")))
     #write to data warehouse
-    meals_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    meals_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/meals")
 
 #get the diets from tripadvisor
@@ -158,7 +158,7 @@ def create_diets(spark_joined_rest):
     diets_tabel = diets_tabel.withColumn("diets", explode(split(diets_tabel.diets, ",")))
     diets_tabel = diets_tabel.withColumn("diets", trim(col("diets")))
     #write to data warehouse
-    diets_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    diets_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/diets")
 
 #get the short reviews from tripadvisor
@@ -173,7 +173,7 @@ def create_short_reviews(spark_joined_rest):
                                                        regexp_replace(col("short_review"), "[\\[\\]]", ""))
 
     #wrote to data warehouse
-    short_review_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    short_review_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/short_review")
 
 
@@ -197,7 +197,7 @@ def create_long_reviews(spark, spark_joined_rest):
     long_reviews_tabel = long_reviews_tabel.withColumn("source", lit("tripadvisor"))
 
     #write to data warehouse
-    long_reviews_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save(
+    long_reviews_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/long_review")
 
 def create_michelin(spark, spark_joined_rest):
@@ -219,7 +219,7 @@ def create_michelin(spark, spark_joined_rest):
     michelin_tabel = df_michelin.join(spark_joined_rest, df_michelin.rest_name == spark_joined_rest.name, "inner") \
         .selectExpr("key as ra_key", "Award_Number as number_of_stars")
 
-    michelin_tabel.write.format("delta").mode('overwrite').option("overwriteSchema", "true").save("hdfs://localhost:9000/user/hadoop/delta/warehouse/michelin")
+    michelin_tabel.write.format("delta").mode('overwrite').save("hdfs://localhost:9000/user/hadoop/delta/warehouse/michelin")
 
 def create_ratings(spark_joined_rest):
     #get the ratings from tripadvisor
