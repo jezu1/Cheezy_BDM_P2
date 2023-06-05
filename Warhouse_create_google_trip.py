@@ -152,6 +152,7 @@ def create_meals(spark_joined_rest):
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/meals")
 
 #get the diets from tripadvisor
+'''
 def create_diets(spark_joined_rest):
     diets_tabel = spark_joined_rest.selectExpr("key as restaurant_key", "ta_special_diets as diets")
     #unwind the diets array
@@ -160,8 +161,10 @@ def create_diets(spark_joined_rest):
     #write to data warehouse
     diets_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/diets")
+'''
 
 #get the short reviews from tripadvisor
+'''
 def create_short_reviews(spark_joined_rest):
     short_review_tabel = spark_joined_rest.selectExpr("key as restaurant_key", "ta_review_preview as short_review")
     #unwind the short reviews array
@@ -176,6 +179,7 @@ def create_short_reviews(spark_joined_rest):
     short_review_tabel.write.format("delta").mode('overwrite').save(
         "hdfs://localhost:9000/user/hadoop/delta/warehouse/short_review")
 
+'''
 
 def create_long_reviews(spark, spark_joined_rest):
     #read data from kaggle dataset with reviews of Barcelona restaurants

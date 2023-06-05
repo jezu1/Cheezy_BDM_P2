@@ -209,6 +209,7 @@ def update_meals(spark,spark_joined_rest):
             INSERT *
     """)
 
+'''
 #get the diets from tripadvisor
 def update_diets(spark,spark_joined_rest):
     diets_tabel = spark_joined_rest.selectExpr("key as restaurant_key", "ta_special_diets as diets")
@@ -226,8 +227,10 @@ def update_diets(spark,spark_joined_rest):
         WHEN NOT MATCHED THEN
             INSERT *
     """)
+'''
 
 #get the short reviews from tripadvisor
+'''
 def update_short_reviews(spark,spark_joined_rest):
     short_review_tabel = spark_joined_rest.selectExpr("key as restaurant_key", "ta_review_preview as short_review")
     #unwind the short reviews array
@@ -237,7 +240,6 @@ def update_short_reviews(spark,spark_joined_rest):
     short_review_tabel = short_review_tabel.withColumn("short_review", trim(col("short_review")))
     short_review_tabel = short_review_tabel.withColumn("short_review",
                                                        regexp_replace(col("short_review"), "[\\[\\]]", ""))
-
     # update data warehouse
     spark.sql("""
         MERGE INTO delta.`hdfs://localhost:9000/user/hadoop/delta/warehouse/short_review` AS target
@@ -248,7 +250,7 @@ def update_short_reviews(spark,spark_joined_rest):
         WHEN NOT MATCHED THEN
             INSERT *
     """)
-
+'''
 
 def update_ratings(spark,spark_joined_rest):
     #get the ratings from tripadvisor
@@ -363,10 +365,10 @@ def main():
 
     #update the datawarehouse
     update_restaurants(spark,df_update)
-    update_diets(spark,df_update)
+    #update_diets(spark,df_update)
     update_meals(spark,df_update)
     update_cuisines(spark,df_update)
-    update_short_reviews(spark,df_update)
+    #update_short_reviews(spark,df_update)
     update_ratings(spark,df_update)
 
 
