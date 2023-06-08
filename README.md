@@ -26,11 +26,12 @@ Other technologies used within the project:
 ***
 In the following is briefly described which function which of the python scripts have when creating the data warehouse (our formatted zone):
 
-* Warhouse_create_google_trip.py: Merge and clean the data that was retrieved from google and tripdadvisor in the previous part of the project. Afterwards create the initial datawarehouse and move the cleaned and merged data to the data warehouse. **This script needs to be run first during the creation of the date warehouse.**
-* Warehouse_create_google_details.py: Move the data retrieved from the Google places details API calls to the data warehouse: This data includes the google reviews and the opening hours of the restaurants.
-* Warehouse_update_google_trip.py: Merge and clean the data retrieved from google and tripadviors and determine which information is new and needs to be added or updated  in the data warehouse and which information needs to be removed from the data warehouse. **This script needs to be run first during the update of the data warehouse.**
-* Warehouse_update_google_details.py: Update the data warehouse with the data that is retrieved from calling the google places details API. This data includes google reviews and the opening hours of a restaurant.
-* Warehouse_external_images.py: Move the filepaths of the external google and tripadvisor images to the data warehouse (script used for both the initial creation and the update of the data warehouse).
+* **Warhouse_create_google_trip.py**: Merge and clean the data that was retrieved from google and tripdadvisor in the previous part of the project. Afterwards create the initial datawarehouse and move the cleaned and merged data to the data warehouse. **This script needs to be run first during the creation of the date warehouse.**
+* **Warehouse_create_google_details.py**: Move the data retrieved from the Google places details API calls to the data warehouse: This data includes the google reviews and the opening hours of the restaurants.
+* **Warehouse_update_google_trip.py**: Merge and clean the data retrieved from google and tripadviors and determine which information is new and needs to be added or updated  in the data warehouse and which information needs to be removed from the data warehouse. **This script needs to be run first during the update of the data warehouse.**
+* **Warehouse_update_google_details.py**: Update the data warehouse with the data that is retrieved from calling the google places details API. This data includes google reviews and the opening hours of a restaurant.
+* **Warehouse_external_images.py**: Move the filepaths of the external google and tripadvisor images to the data warehouse (script used for both the initial creation and the update of the data warehouse).
+* **Warehouse_deletion**: Remove restaurants that are marked as closed from the data warehouse.
 
 ## Exploitation Zone
 ***
