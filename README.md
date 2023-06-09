@@ -38,4 +38,4 @@ In the following is briefly described which function which of the python scripts
 Put information for dashboard and graph here
 
 #### 4.1 Recommender
-The file **recommender.cql** includes all the cypher queries to create the recommender for our Graph in Neo4J. To be able to run the file Neo4J Data Science library muss be installed.
+The file **recommender.cql** includes all the cypher queries to create the recommender for our Graph in Neo4J. To be able to execute all the queries the Neo4J Graph Data Science Library muss be installed.
