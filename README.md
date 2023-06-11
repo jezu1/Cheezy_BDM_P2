@@ -21,6 +21,7 @@ Other technologies used within the project:
 * Spark: Version 3.3.0
 * Delta Lake: Version 2.1.0 
 * Neo4J Community: Version 4.4.20
+* Streamlit: Version 1.12
 
 ## Formatted Zone
 ***
