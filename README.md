@@ -32,10 +32,17 @@ In the following is briefly described which function which of the python scripts
 * **Warehouse_update_google_details.py**: Update the data warehouse with the data that is retrieved from calling the google places details API. This data includes google reviews and the opening hours of a restaurant.
 * **Warehouse_external_images.py**: Move the filepaths of the external google and tripadvisor images to the data warehouse (script used for both the initial creation and the update of the data warehouse).
 * **Warehouse_deletion.py**: Remove restaurants that are marked as closed from the data warehouse.
+* **dw_Cheezy**: This code is run after transferring all cheezy data tables into the persistent landing zone. This then produces cleaned and normalized tables and saves to the data warehouse.
 
 ## Exploitation Zone
 ***
-Put information for dashboard and graph here
+
+* **datamart_dashboard**: This code is run after the data warehouse tables for Cheezy and restaurants are created. This then aggregates data into monthly or daily statistics per restaurant and saves into the datamarts folder for the dashboard to use.
+* 
+* **dashboard.py**: This is a streamlit application that connects to the Delta Lake datamart using via Spark. To run this, streamlit 1.12 must be installed. To run, navigate to the folder path where this file is located and enter the following in the command line: "streamlit run dashboard.py" This should then show the url in which you can access the dashboard from your browser.
 
 #### 4.1 Recommender
 The file **recommender.cql** includes all the cypher queries to create the recommender for our Graph in Neo4J. To be able to execute all the queries the Neo4J Graph Data Science Library muss be installed.
+
+
+
