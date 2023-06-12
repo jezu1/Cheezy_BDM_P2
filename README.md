@@ -37,7 +37,9 @@ In the following is briefly described which function which of the python scripts
 
 ## Exploitation Zone
 ***
+In the following the scripts used for our exploitation zone are briefly described.
 
+* **Neo4JConnect.py**: This code is used to move the data from the datawarehouse to the Neo4J graph.
 * **datamart_dashboard**: This code is run after the data warehouse tables for Cheezy and restaurants are created. This then aggregates data into monthly or daily statistics per restaurant and saves into the datamarts folder for the dashboard to use.
 * **dashboard.py**: This is a streamlit application that connects to the Delta Lake datamart using via Spark. To run this, streamlit 1.12 must be installed. To run, navigate to the folder path where this file is located and enter the following in the command line: "streamlit run dashboard.py" This should then show the url in which you can access the dashboard from your browser.
 
