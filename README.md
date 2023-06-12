@@ -44,7 +44,7 @@ In the following the scripts used for our exploitation zone are briefly describe
 * **dashboard.py**: This is a streamlit application that connects to the Delta Lake datamart using via Spark. To run this, streamlit 1.12 must be installed. To run, navigate to the folder path where this file is located and enter the following in the command line: "streamlit run dashboard.py" This should then show the url in which you can access the dashboard from your browser.
 
 #### 4.1 Recommender
-The file **recommender.cql** includes all the cypher queries to create the recommender for our Graph in Neo4J. To be able to execute all the queries the Neo4J Graph Data Science Library muss be installed.
+The file **recommender.cql** includes all the cypher queries to create and query the recommender for our Graph in Neo4J. To be able to execute all the queries the Neo4J Graph Data Science Library muss be installed.
 
 
 
