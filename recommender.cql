@@ -39,6 +39,7 @@ CALL gds.fastRP.mutate(
   }
 )
 
+
 //perform knn for the restaurant nodes based on embedding
 CALL gds.knn.write(
   'recommenderTest12',  // name of the graph
@@ -56,20 +57,27 @@ RETURN relationshipsWritten
 
 
 // query to get the recommended restaurant
+
 MATCH (u:User {id: $userId})-[s:SWIPED {swipeLeft: 0}]->(i:Images)<-[e:HAS_IMAGE]-(r:Restaurant)
 WITH r, s
 ORDER BY s.timestamp DESC 
 LIMIT 5
+WITH collect(r) as recentRestaurants
 MATCH (r)-[u:USERS_ALSO_LIKED]->(r1:Restaurant)
+WHERE NOT r1 IN recentRestaurants
 WITH r1,u.score as score, r1.latitude AS rLatitude, r1.longitude AS rLongitude, {latitude: $latitude, longitude: $longitude} AS location
 WITH r1,score, rLatitude, rLongitude, location,
      distance(point({latitude: rLatitude, longitude: rLongitude}), point(location)) AS distance
+MATCH (r1)-[oh:OPENING_HOURS]->(wd:Weekday)
+WHERE toInteger(apoc.date.format(apoc.date.currentTimestamp(), 'HHmm')) >= oh.open_time 
+  AND toInteger(apoc.date.format(apoc.date.currentTimestamp(), 'HHmm')) <= oh.close_time
+  AND wd.weekday = apoc.date.format(apoc.date.currentTimestamp(), 'EEEE')
+WITH r1.key as key, r1.restaurant_name as restaurant_name, score, distance
 ORDER BY distance
 LIMIT 3
-RETURN r1.key
-Order BY score desc
-limit 1
-
+RETURN key
+ORDER BY score DESC
+LIMIT 1
 
 
 //query to get the image shown in the app
@@ -83,3 +91,4 @@ limit 5
 WITH collect(i) as images
 WITH images[toInteger(RAND() * size(images))] as selectedImage
 RETURN selectedImage.id
+
